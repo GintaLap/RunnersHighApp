@@ -1,133 +1,104 @@
-import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { Component, useEffect, useState } from "react";
-import { StyleSheet, Text, View, TouchableWithoutFeedback, Image, Dimensions, WebView,} from 'react-native';
-import { Avatar, Button, Card, Title, Paragraph } from "react-native-paper";
-import LogoSize from "../helperMethod/LogoSize";
+import * as React from 'react';
+import { StyleSheet, ScrollView, Text, View, TouchableWithoutFeedback, Image,TouchableOpacity} from 'react-native';
+import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
 
+const RunIcon = props => <Avatar.Icon {...props} icon="run-fast" color="#053630"/>
+const CalendarIcon = props => <Avatar.Icon {...props} icon="calendar" color="#053630"/>
+const AccountIcon = props => <Avatar.Icon {...props} icon="account" color="#053630"/>
 
-
-const windowWidth = Dimensions.get("window").width;
-
-
-
-
-function AllEvents({ headline, imageURI, imageLogo, navigation, url }) {
-    var theWidth = 0;
-    Image.getSize(imageLogo, (height, width) => {
-      theWidth = width;
-    }); 
+const MyComponent = ({navigation}) => {
 return (
 
-  <View style={style.container}>
-    <TouchableWithoutFeedback
-      onPress={() => navigation.navigate("SelectEvent", { url })}
-      style={{ flex: 1 }}
-    >
-      <Card>
-        <Card.Content
-          style={{
-            paddingLeft: 19,
-            paddingRight: 19,
-            paddingTop: 19,
-            paddingBottom: 10,
-            backgroundColor: "#053630",
-            flex: 1,
-          }}
-        >
-          <Card.Cover
-            style={{ borderRadius: 5, flex: 1 }}
-            source={require('../assets/images/run1.jpg')}
-          />
-        </Card.Content>
-        <Card.Content
-          style={{
-            paddingLeft: 19,
-            paddingRight: 19,
-            
-            flex: 1,
-          }}
-        >
-          <Image
-            style={{
-              resizeMode: "contain",
-              height: 100,
-              width: 200,
-            }}
-            source={require('../assets/images/run2.jpg')}
-          />
-        </Card.Content>
-        <Card.Content
-          style={{
-            paddingLeft: 19,
-            paddingRight: 19,
-            height: 100,
-            width: 200,
-            
-            flex: 1,
-          }}
-        >
-          <Title>{headline}</Title>
-        </Card.Content>
-      </Card>
-    </TouchableWithoutFeedback>
-  </View>
+  <ScrollView>
+    <View style={style.container}>
+<View style={style.iconContainer}>
+<View  style={style.calIcon}>
+  <TouchableOpacity onPress={() => navigation.navigate('Calendar')}>
+              <CalendarIcon       
+            size={50} />
+            </TouchableOpacity>
+</View>
+<View style={style.accIcon}>
+  <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
+              <AccountIcon
+               ize={50}/>
+            </TouchableOpacity>
+            </View>
+</View>
+
+    <Text style={style.header}>Events</Text>
+   <TouchableOpacity onPress={() => navigation.navigate('SelectEvent')}>
+   <Card  style={style.card}>
+    <Card.Title title="Noķer Vēju Half Marathon" subtitle="Salaspils || 9 May 2022" left={RunIcon} titleStyle={{ color: "#f2f2f2" }} subtitleStyle={{ color: "#f2f2f2" }}/>
+    <Card.Content>
+    </Card.Content>
+    <Card.Cover source={{ uri: 'https://wmimg.azureedge.net/public/img/marathons/marathon-de-montpellier/marathon-de-montpellier_5_marathon-de-montpellier.jpg?c=1574936301' }} /> 
+  </Card>
+   </TouchableOpacity>
+
+<TouchableOpacity onPress={() => navigation.navigate('SelectEvent')}>
+<Card  style={style.card}>
+    <Card.Title title="Rimi Riga Marathon" subtitle="Riga || 14-15 May 2022" left={RunIcon} titleStyle={{ color: "#f2f2f2" }}subtitleStyle={{ color: "#f2f2f2" }} />
+    <Card.Content>
+    </Card.Content>
+    <Card.Cover style={{ padding: 2 }} source={{ uri: 'https://www.latvia.travel/sites/default/files/styles/lightbox/public/events/lattelecom-riga-marathon-latvia-travel_1.jpg?itok=7K2m_5eX' }} /> 
+  </Card>
+</TouchableOpacity>
+
+<TouchableOpacity onPress={() => navigation.navigate('SelectEvent')}>
+<Card  style={style.card}>
+    <Card.Title title="Riekstukalns Stirnu Buks" subtitle="Rieksukals || 21 May 2022" left={RunIcon} titleStyle={{ color: "#f2f2f2" }} subtitleStyle={{ color: "#f2f2f2" }}/>
+    <Card.Content>
+    </Card.Content>
+    <Card.Cover source={{ uri: 'https://www.sporto.lv/uploads/2019/01/19stirnubuks2018sezonaunterveteaktuaaliimg_01732_1.jpg' }} /> 
+  </Card> 
+</TouchableOpacity>
+
+    </View>
+
+  </ScrollView>
 
   );
 }
 
-export default AllEvents;
+export default MyComponent;
 
 const style = StyleSheet.create({
     container:{
-        flex: 1,
+        padding: 8,
         justifyContent: 'center',
         backgroundColor: '#296460',
         alignItems: "center",
-        padding: 8,
-    },
-  
-    logo:{
-        margin:50,
         
-    },
-    inputView: {
-        backgroundColor: "#e6e6e6",
-        borderRadius: 20,
-        width: "75%",
-        height: 45,
-        marginBottom: 10,
-     
-        alignItems: "center",
-      },
-      TextInput: {
-        height: 50,
-        flex: 1,
-        padding: 10,
-        marginLeft: 20,
-        marginTop: Platform.OS === 'ios' ? 0 : -12
-      },
-     
-      forgot_button: {
-        height: 30,
-        marginBottom: 20,
-        color:"white",
+},
+iconContainer:{
+    marginTop:30,
+      flexDirection:"row",
         
-      },
-     
-      loginBtn: {
-        width: "60%",
-        borderRadius: 25,
-        height: 50,
-        alignItems: "center",
-        justifyContent: "center",
-        marginTop: 5,
-        marginBottom:5,
-        backgroundColor: "#053630",
-      },
-      loginText:{
-          color:"white",
-      }
-  });
+},
+accIcon:{
+      marginLeft:120,
+      marginTop:10,
+        
+},
+  calIcon: {
+    marginTop:10,
+    marginRight:120,
+    
+    
+  },
 
+    header: {
+      fontSize: 36,
+      color: "white",
+      fontWeight: "bold",
+      textAlign: "center",
+    },
+card:{
   
+  margin:5,
+  backgroundColor: "#053630",
+  width: 300,
+  height: 265,
+    
+}});

@@ -1,127 +1,83 @@
-import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { Component, useEffect, useState } from "react";
-import { StyleSheet, Text, View, TouchableWithoutFeedback, Image, Dimensions, WebView,} from 'react-native';
-import { Avatar, Button, Card, Title, Paragraph } from "react-native-paper";
+import * as React from 'react';
+import { StyleSheet, ScrollView, Text, View, TouchableWithoutFeedback, Image,TouchableOpacity, Linking} from 'react-native';
+import { Avatar, Button, Card, Title, Paragraph } from 'react-native-paper';
 
 
+const BackIcon = props => <Avatar.Icon {...props} icon="arrow-left" color="#053630"/>
+const MY_URL = 'https://rimirigamarathon.com/en/registration/run-in-2022/';
 
-
-const windowWidth = Dimensions.get("window").width;
-
-
-
-
-function AllEvents({ headline, imageURI, imageLogo, navigation, url }) {
-    var theWidth = 0;
-    Image.getSize(imageLogo, (height, width) => {
-      theWidth = width;
-    }); 
+const MyComponent = ({navigation}) => {
 return (
-    <TouchableWithoutFeedback
-      onPress={() => navigation.navigate("SelectEvent", { url })}
-      style={{ flex: 1 }}
-    >
-      <Card>
-        <Card.Content
-          style={{
-            paddingLeft: 19,
-            paddingRight: 19,
-            paddingTop: 19,
-            paddingBottom: 10,
-            backgroundColor: "#053630",
-            flex: 1,
-          }}
-        >
-          <Card.Cover
-            style={{ borderRadius: 5, flex: 1 }}
-            source={{ uri: imageURI }}
+
+  <ScrollView>
+    <View style={style.container}>
+<View  style={style.backIcon}>
+  <TouchableOpacity           
+              onPress={() => navigation.navigate('AllEvents')} >
+              <BackIcon
+            size={50}
           />
-        </Card.Content>
-        <Card.Content
-          style={{
-            paddingLeft: 19,
-            paddingRight: 19,
-            backgroundColor: "#053630",
-            flex: 1,
-          }}
-        >
-          <Image
-            style={{
+    </TouchableOpacity>
+</View>
+
+    <Text style={style.header}>Rimi Riga Marathon</Text>
+
+    <Image style={{
               resizeMode: "contain",
-              height: dims.height,
-              width: dims.width,
-            }}
-            source={{ uri: imageLogo }}
-          />
-        </Card.Content>
-        <Card.Content
-          style={{
-            paddingLeft: 19,
-            paddingRight: 19,
-            backgroundColor: appBackground,
-            flex: 1,
-          }}
-        >
-          <Title>{headline}</Title>
-        </Card.Content>
-      </Card>
-    </TouchableWithoutFeedback>
+              height: 300,
+              width: 600
+            }} source={{uri: 'https://www.latvia.travel/sites/default/files/styles/lightbox/public/events/lattelecom-riga-marathon-latvia-travel_1.jpg?itok=7K2m_5eX' }} />
+
+    </View>
+    <Paragraph style={style.paragraph}>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </Paragraph>
+    <TouchableOpacity style={style.loginBtn} 
+        onPress={() => Linking.openURL(MY_URL)}>
+        <Text style={style.loginText}>Buy Entry</Text>
+      </TouchableOpacity>
+  </ScrollView>
+
   );
 }
 
-export default AllEvents;
+export default MyComponent;
 
 const style = StyleSheet.create({
     container:{
-        flex: 1,
+        padding: 8,
         justifyContent: 'center',
         backgroundColor: '#296460',
         alignItems: "center",
-        padding: 8,
+},
+paragraph:{
+    padding:10,
+    marginLeft:10,
+    marginRight: 10,
+},
+  backIcon: {
+    marginTop:20,
+    marginRight:350,
+    
+    
+  },
+    header: {
+      fontSize: 36,
+      color: "white",
+      fontWeight: "bold",
+      textAlign: "center",
     },
-  
-    logo:{
-        margin:50,
-        
-    },
-    inputView: {
-        backgroundColor: "#e6e6e6",
-        borderRadius: 20,
-        width: "75%",
-        height: 45,
-        marginBottom: 10,
-     
-        alignItems: "center",
-      },
-      TextInput: {
-        height: 50,
-        flex: 1,
-        padding: 10,
-        marginLeft: 20,
-        marginTop: Platform.OS === 'ios' ? 0 : -12
-      },
-     
-      forgot_button: {
-        height: 30,
-        marginBottom: 20,
-        color:"white",
-        
-      },
-     
-      loginBtn: {
+    loginBtn: {
         width: "60%",
         borderRadius: 25,
         height: 50,
         alignItems: "center",
         justifyContent: "center",
-        marginTop: 5,
-        marginBottom:5,
+        margin:10,
         backgroundColor: "#053630",
       },
       loginText:{
           color:"white",
       }
-  });
-
-  
+   
+});
